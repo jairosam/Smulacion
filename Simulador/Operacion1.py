@@ -10,6 +10,7 @@ Created on Sun Aug 16 17:09:23 2020
 import pandas as pd
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 
 class Operacion1:
     
@@ -67,15 +68,12 @@ class Operacion1:
             contador += 1
         self.df["clasPNC"] = clas_pnc
     
-    def clasificar_costo_pnc(self):
+    def costo_pnc(self):
         aleatorio = self.generar_aleatorios()
         self.df["prt_extra"] = aleatorio
         self.df["tiempo_extra"] = self.mini+(self.maxi-self.mini)*self.df.prt_extra
-        contador = 0
-        for clase in self.df.clasPNC:
-            if clase == "Desecho" or clase == "":
-                self.df.prt_extra[contador], self.df.tiempo_extra[contador] = 0,0
-            contador += 1
+        self.df.prt_extra[(self.df.clasPNC == "Desecho") | (self.df.clasPNC == "")] = 0
+        self.df.tiempo_extra[(self.df.clasPNC == "Desecho") | (self.df.clasPNC == "")] = 0
         self.df["costo_extra"] = self.df.tiempo_extra * self.costo
             
     def muestreo(self):
@@ -99,20 +97,10 @@ class Operacion1:
         self.clasificar_productos()
         self.calcular_costo()
         self.clasificar_pnc()
-        self.clasificar_costo_pnc()
+        self.costo_pnc()
         self.muestreo()
         self.costo_total()
-    
-op = Operacion1(4.3,7.1,78,840,29,131)
-
-op.operar()
-
-    
-    
-    
-    
-    
-    
+   
     
     
     
