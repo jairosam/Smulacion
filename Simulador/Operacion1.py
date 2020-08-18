@@ -87,8 +87,11 @@ class Operacion1:
                 muestra.append(False)
         self.df["muestreo"] = muestra
         for i in range(len(self.df.muestreo)):
+            if self.df.muestreo[i] == False and self.df.clasPNC[i] == "Reproceso":
+                self.df.prt_extra[i], self.df.tiempo_extra[i], self.df.costo_extra[i] = 0,0,0
             if self.df.muestreo[i] == True and self.df.clasPNC[i] == "Desecho":
                 self.df = self.df.drop([i])
+                    
     
     def costo_total(self):
         self.df["costo_total"] = self.df.costo + self.df.costo_extra   
@@ -102,8 +105,8 @@ class Operacion1:
         self.costo_total()
    
     
-    
-    
+oper1 = Operacion1(4.3,7.1,78,840,29,131)
+oper1.operar()    
     
     
     

@@ -94,7 +94,7 @@ class Operacion2:
         self.df["costo_extra"] = 0
         self.df.costo_extra[self.df.clasPNC == "Reproceso"] = self.df.tiempo_extra * self.costo            
         self.df.costo_extra[self.df.clasPNC == "Reclasificacion"] = 1800
-        self.df.costo_extra[self.df.clasPNC == "Desecho"] = -9
+        self.df.costo_extra[self.df.clasPNC == "Desecho"] = 9
         
     
     def tecnico(self, min_tecnico, max_tecnico, costo_tecnico):
@@ -104,23 +104,43 @@ class Operacion2:
         self.df["tiempos_tecnico"] = min_tecnico+(max_tecnico-min_tecnico)*self.df.prt_extra
         self.df.tiempos_tecnico[self.df.clasPNC != "Reparacion"] = 0
         self.df.costo_extra[self.df.clasPNC == "Reparacion"] = self.df.tiempos_tecnico * costo_tecnico 
-        
+     
+    def muestreo(self):
+        aleatorio = self.generar_aleatorios_2()
+        self.df["aleatorio_muestreo"] = aleatorio
+        muestreo = []
+        for valor in self.df.aleatorio_muestreo:
+            if valor > 0.5:
+                muestreo.append(True)
+            else:
+                muestreo.append(False)
+        self.df["muestreo"] = muestreo
+        contador = 0
+        for valor in self.df.muestreo:
+            if valor == False:
+                self.df.prt_extra[contador] = 0
+                self.df.tiempo_extra[contador] = 0
+                self.df.costo_extra[contador] = 0
+                self.df.tiempos_tecnico[contador] = 0
+            contador += 1
+                    
+            
     def costo_total(self):
         self.df["costo_total"] = self.df.costo + self.df.costo_extra
 
-
-
+#for i in range(20):
 oper1 = Operacion1(4.3,7.1,78,840,29,131)
 oper2 = Operacion2(9.1,11.4,82,927,9,36,17,11,9,1800)
-oper1.operar()
+oper1.operar()  
 oper2.clasificar_productos(oper1)
 oper2.calcular_costo()
 oper2.clasificar_pnc()
 oper2.costo_pnc()
 oper2.tecnico(5.2,7.3,53)
+oper2.muestreo()
 oper2.costo_total()
-
-
+#    oper1.df.to_excel("Replica1/Replica_operacion_1_{}.xlsx".format(i), sheet_name="Replica")
+#    oper2.df.to_excel("Replica2/Replica_operacion_2_{}.xlsx".format(i), sheet_name="Replica")
 
 
 
