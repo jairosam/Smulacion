@@ -76,7 +76,7 @@ class Operacion1:
         self.df.tiempo_extra[(self.df.clasPNC == "Desecho") | (self.df.clasPNC == "")] = 0
         self.df["costo_extra"] = self.df.tiempo_extra * self.costo
             
-    def muestreo(self):
+    def muestreo(self, mini, maxi, costo):
         aleatorio = self.generar_aleatorios()
         self.df["aleatorio_muestreo"] = aleatorio
         muestra = []
@@ -86,27 +86,30 @@ class Operacion1:
             else:
                 muestra.append(False)
         self.df["muestreo"] = muestra
+        aleatorio_tiempo_muestreo = self.generar_aleatorios()
+        self.df["aleatorio_tiempo_muestreo"] = aleatorio_tiempo_muestreo
+        self.df["tiempos_muestreo"] = mini+(maxi-mini)*self.df.aleatorio_tiempo_muestreo
         for i in range(len(self.df.muestreo)):
             if self.df.muestreo[i] == False and self.df.clasPNC[i] == "Reproceso":
                 self.df.prt_extra[i], self.df.tiempo_extra[i], self.df.costo_extra[i] = 0,0,0
+            if self.df.muestreo[i] == False:
+                self.df.tiempos_muestreo[i], self.df.aleatorio_tiempo_muestreo[i] = 0,0
             if self.df.muestreo[i] == True and self.df.clasPNC[i] == "Desecho":
                 self.df = self.df.drop([i])
-                    
+        self.df["costo_muestreo"] = costo*self.df.tiempos_muestreo        
     
     def costo_total(self):
-        self.df["costo_total"] = self.df.costo + self.df.costo_extra   
-    
-    def operar(self):
-        self.clasificar_productos()
-        self.calcular_costo()
-        self.clasificar_pnc()
-        self.costo_pnc()
-        self.muestreo()
-        self.costo_total()
+        self.df["costo_total"] = self.df.costo + self.df.costo_extra + self.df.costo_muestreo  
+
    
     
 oper1 = Operacion1(4.3,7.1,78,840,29,131)
-oper1.operar()    
+oper1.clasificar_productos()
+oper1.calcular_costo()
+oper1.clasificar_pnc()
+oper1.costo_pnc()
+oper1.muestreo(2.5,3.2,7)
+oper1.costo_total()   
     
     
     
