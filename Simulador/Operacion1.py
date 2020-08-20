@@ -30,9 +30,7 @@ class Operacion1:
         self.df = pd.DataFrame()
     
     def generar_aleatorios(self):
-        aleatorios = []
-        for i in range(1,1001):
-            aleatorios.append(random.random())
+        aleatorios = [random.uniform(0,1) for i in range(1000)]
         return aleatorios
     
     def clasificar_productos(self):
@@ -100,16 +98,7 @@ class Operacion1:
     
     def costo_total(self):
         self.df["costo_total"] = self.df.costo + self.df.costo_extra + self.df.costo_muestreo  
-
-   
-    
-oper1 = Operacion1(4.3,7.1,78,840,29,131)
-oper1.clasificar_productos()
-oper1.calcular_costo()
-oper1.clasificar_pnc()
-oper1.costo_pnc()
-oper1.muestreo(2.5,3.2,7)
-oper1.costo_total()   
+ 
     
     
     

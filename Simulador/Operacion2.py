@@ -36,15 +36,11 @@ class Operacion2:
         self.df = pd.DataFrame()    
     
     def generar_aleatorios_1(self, oper1):
-        aleatorios = []
-        for i in range(len(oper1.df.muestreo)):
-            aleatorios.append(random.random())
+        aleatorios = [random.uniform(0,1) for i in range(len(oper1.df.muestreo))]
         return aleatorios
     
     def generar_aleatorios_2(self):
-        aleatorios = []
-        for i in range(len(self.df.prProducto)):
-            aleatorios.append(random.random())
+        aleatorios = [random.uniform(0,1) for i in range(len(self.df.prProducto))]
         return aleatorios
     
     def clasificar_productos(self, oper1):
@@ -129,8 +125,7 @@ class Operacion2:
                 self.df.tiempos_muestreo[contador] = 0
             contador += 1
         self.df["costo_muestreo"] = self.df.tiempos_muestreo*costo
-                    
-            
+                            
     def costo_total(self):
         self.df["costo_total"] = self.df.costo + self.df.costo_extra + self.df.costo_muestreo
 
