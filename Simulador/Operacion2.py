@@ -125,30 +125,13 @@ class Operacion2:
                 self.df.tiempos_muestreo[contador] = 0
             contador += 1
         self.df["costo_muestreo"] = self.df.tiempos_muestreo*costo
-                            
+    
+    
+                      
     def costo_total(self):
         self.df["costo_total"] = self.df.costo + self.df.costo_extra + self.df.costo_muestreo
 
-#for i in range(20):
-oper1 = Operacion1(4.3,7.1,78,840,29,131)
-oper2 = Operacion2(9.1,11.4,82,927,9,36,17,11,9,1800)
-#operacion 1
-oper1.clasificar_productos()
-oper1.calcular_costo()
-oper1.clasificar_pnc()
-oper1.costo_pnc()
-oper1.muestreo(2.5,3.2,7)
-oper1.costo_total()
-#operacion 2 
-oper2.clasificar_productos(oper1)
-oper2.calcular_costo()
-oper2.clasificar_pnc()
-oper2.costo_pnc()
-oper2.tecnico(5.2,7.3,53)
-oper2.muestreo(3.7,9.9,7)
-oper2.costo_total()
-#    oper1.df.to_excel("Replica1/Replica_operacion_1_{}.xlsx".format(i), sheet_name="Replica")
-#    oper2.df.to_excel("Replica2/Replica_operacion_2_{}.xlsx".format(i), sheet_name="Replica")
+
 
 
 
