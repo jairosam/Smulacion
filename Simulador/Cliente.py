@@ -50,6 +50,8 @@ class Cliente:
                 conformidad.append("PNC")
             elif oper2.df.clasProducto[i] == "PNC" and oper2.df.muestreo[i] == False:
                 conformidad.append("PNC")
+            elif oper1.df.clasPNC.to_numpy()[i] == "Reproceso" and oper1.df.muestreo.to_numpy()[i] == False:
+                conformidad.append("PNC")
             else:
                 conformidad.append("PC")
         self.df["conformidad"] = conformidad
@@ -132,20 +134,19 @@ oper2.costo_total()
 cliente = Cliente(103,35,29,4)
 cliente.asignar_productos(oper1,oper2)
 cliente.clasificar_llegada(oper2)
-cliente.filtrar_productos(oper1,oper2)      
+cliente.filtrar_productos(oper1,oper2)
 cliente.vuelta_clientes()
 cliente.reclamo_clientes()        
 cliente.calculo_costo_clientes()        
 cliente.costo_total_proceso()
 cliente.ganancia_proceso()        
-                
-        
+      
 import matplotlib.pyplot as plt
 plt.title("Costo vs ganancia")
 plt.xlabel("costo")
 plt.ylabel("ganancia")
 plt.plot(cliente.df.costo_proceso, cliente.df.ganancia_proceso)      
-        
+     
         
         
         

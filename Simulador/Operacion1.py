@@ -94,6 +94,7 @@ class Operacion1:
                 self.df.tiempos_muestreo[i], self.df.aleatorio_tiempo_muestreo[i] = 0,0
             if self.df.muestreo[i] == True and self.df.clasPNC[i] == "Desecho":
                 self.df = self.df.drop([i])
+        self.df = self.df.reset_index(drop=True)
         self.df["costo_muestreo"] = costo*self.df.tiempos_muestreo        
     
     def costo_total(self):
