@@ -1,2 +1,2 @@
-# Smulacion
+# Simulacion
 Simulación montecarlo
