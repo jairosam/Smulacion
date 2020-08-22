@@ -186,11 +186,11 @@ def ventana_estadisticas():
     for i in range(total_rows): 
         for j in range(total_columns): 
             if i == 0:
-                st_table_mediana = Entry(desv_est_frame, width = 20, font=("Arial", 11, "bold"))
+                st_table_desv_est = Entry(desv_est_frame, width = 20, font=("Arial", 11, "bold"))
             else:
-                st_table_mediana = Entry(desv_est_frame, width = 23, font=("Arial", 10)) 
-            st_table_mediana.grid(row=i, column=j) 
-            st_table_mediana.insert(END, matriz_desv_est[i][j])
+                st_table_desv_est = Entry(desv_est_frame, width = 23, font=("Arial", 10)) 
+            st_table_desv_est.grid(row=i, column=j) 
+            st_table_desv_est.insert(END, matriz_desv_est[i][j])
             
     # Varianza
     var_label = Label(newWindow, text = "Varianza", font = ("Verdana", 14))
@@ -204,11 +204,11 @@ def ventana_estadisticas():
     for i in range(total_rows): 
         for j in range(total_columns): 
             if i == 0:
-                st_table_mediana = Entry(var_frame, width = 20, font=("Arial", 11, "bold"))
+                st_table_var = Entry(var_frame, width = 20, font=("Arial", 11, "bold"))
             else:
-                st_table_mediana = Entry(var_frame, width = 23, font=("Arial", 10)) 
-            st_table_mediana.grid(row=i, column=j) 
-            st_table_mediana.insert(END, matriz_var[i][j])
+                st_table_var = Entry(var_frame, width = 23, font=("Arial", 10)) 
+            st_table_var.grid(row=i, column=j) 
+            st_table_var.insert(END, matriz_var[i][j])
 
         
 def iniciar_simulacion():
